@@ -39,6 +39,7 @@ function setUpCombobox() {
     valueField :'key',
     textField  :'name',
     data       : options,
+    editable   : false,
     onChange : function(newVal, oldVal) {
       if (newVal != oldVal) $('link')[0].href = `easyui/themes/${newVal}/easyui.css`;
     }
