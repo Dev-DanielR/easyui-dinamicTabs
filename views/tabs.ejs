@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tabs Strip Tools - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="style/easyui.css">
+    <link rel="stylesheet" type="text/css" href="style/icon.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <h2>Tabs Strip Tools</h2>
+    <p>Click the mini-buttons on the tab strip to perform actions.</p>
+    <div style="margin:20px 0;"></div>
+    <div id="tt" class="easyui-tabs" style="width:700px;height:250px"> </div>
+    <div id="about-tools">
+        <a href="javascript:void(0)" class="icon-mini-refresh" onclick="refreshTab('about')"></a>
+    </div>
+    <div id="help-tools">
+        <a href="javascript:void(0)" class="icon-mini-refresh" onclick="refreshTab('help')"></a>
+    </div>
+ 
+    <script defer>
+        const data = {
+            'about': {
+                title   : 'About',
+                tools   : '#about-tools',
+                content : `<div data-options="closable:true" style="padding:10px">
+                    <p style="font-size:14px">jQuery EasyUI framework helps you build your web pages easily.</p>
+                    <ul>
+                        <li>easyui is a collection of user-interface plugin based on jQuery.</li>
+                        <li>easyui provides essential functionality for building modem, interactive, javascript applications.</li>
+                        <li>using easyui you don't need to write many javascript code, you usually defines user-interface by writing some HTML markup.</li>
+                        <li>complete framework for HTML5 web page.</li>
+                        <li>easyui save your time and scales while developing your products.</li>
+                        <li>easyui is very easy but powerful.</li>
+                    </ul>
+                </div>`
+            },
+            'help': {
+                title   : 'Help',
+                tools   : '#help-tools',
+                content : `<iframe scrolling="auto" frameborder="0"  src="google.html" style="width:100%;height:100%;"></iframe>`
+            }
+        };
+
+        function addTab(id){ 
+            let tab = data[id];
+            if ($('#tt').tabs('exists', tab.title)) $('#tt').tabs('select', tab.title);
+            else  $('#tt').tabs('add', {...tab, closable : true});
+        }
+
+        function refreshTab(id) {
+            let tab   = data[id];
+            let tabs  = $('#tt').tabs('tabs');
+            let index = -1;
+
+            $('#tt ul.tabs li').each(function(i, v) {
+                if ($('.tabs-title', v).html() === tab.title) index = i;
+            });
+
+            if (index != -1) $('#tt').tabs('update', {
+                tab: tabs[index],
+                options: { content: tab.content }
+            });
+        };
+
+        $(document).ready(function() {
+            addTab('about');
+            addTab('help');
+            $('#tt').tabs('select', 'About');
+        });
+    </script>
+</body>
+</html>

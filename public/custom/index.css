@@ -1,0 +1,23 @@
+@font-face {
+  font-family: Roboto;
+  src: url(fonts/Roboto.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: JosefinSans;
+  src: url(fonts/JosefinSans.ttf) format("truetype");
+}
+
+* { font-family: Roboto, sans-serif; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: JosefinSans, sans-serif;
+}
+
+.disabledClass {
+  pointer-events: none;
+  user-select: none;
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
+  filter: brightness(0.9);
+  -webkit-filter: brightness(0.9);
+}
