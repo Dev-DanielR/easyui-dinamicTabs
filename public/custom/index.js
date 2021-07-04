@@ -51,9 +51,9 @@ $(document).ready(setUpCombobox);
 /* Tabs */
 
 let tabs = {
-  'google-tab' : { title : 'Google',     url : '/google.html' },
-  'bing-tab'   : { title : 'Bing',       url : '/bing.html' },
-  'ddg-tab'    : { title : 'DuckDuckGo', url : '/duckduckgo.html' }
+  'google-tab' : { title : 'Google',     url : '/google' },
+  'bing-tab'   : { title : 'Bing',       url : '/bing' },
+  'ddg-tab'    : { title : 'DuckDuckGo', url : '/duckduckgo' }
 };
 
 function addTab(tabID) {

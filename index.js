@@ -1,19 +1,40 @@
-const path = require('path')
+const
+  path    = require('path'),
+  express = require('express'),
+  app     = express(),
+  port    = 80
 
-const express = require('express')
-const app = express()
+//Session
+const
+  sqlite      = require('better-sqlite3'),
+  session     = require('express-session'),
+  SqliteStore = require('better-sqlite3-session-store')(session),
+  db          = new sqlite('sessions.db');
 
-const port = 3000
+app.use(
+  session({
+    saveUninitialized : true,
+    store: new SqliteStore({
+      client  : db,
+      expired : {clear: true, intervalMs: 900000}
+    }),
+    secret : 'c46f7a5e90a522acfbcfa4f28605edc8',
+    resave : false
+  })
+)
 
+//Middleware
+const getTheme = require('./middlewares/theme')
+
+//Routes
 app.set('view engine', 'ejs')
 
 app.get(`/`, (req, res) => {
-  let theme = req.query.theme || 'default';
-  res.render('index', { theme })
+  res.render('index', { 'theme': getTheme(req) })
 })
 
 function respondWithDelay(page) {
-  app.get(`/${page}.html`, async (req, res) => {
+  app.get(`/${page}`, async (req, res) => {
     setTimeout(() => res.render(page), 2000)
   })
 }
@@ -21,6 +42,12 @@ respondWithDelay('google')
 respondWithDelay('bing')
 respondWithDelay('duckduckgo')
 
+app.get('/login', (req, res) => {
+  res.render('login', { 'theme': getTheme(req) })
+})
+
+//Assets
 app.use('/', express.static(path.join(__dirname, 'public')))
 
+//Listen
 app.listen(port, () => console.log('Server started!'))
