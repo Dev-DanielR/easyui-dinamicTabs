@@ -19,11 +19,6 @@
     </form>
   </div>
 
-  <!--Loading-->
-  <div id="loading" style="user-select: none; position: absolute; height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">
-    <img src="custom/images/loading.gif" style="width: 50px; height: 50px;">
-  </div>
-
   <!--Content-->
   <div id="content" data-options="region:'center'" class="easyui-layout easyui-fluid">
 
@@ -33,8 +28,10 @@
       <a href="#" class="easyui-linkbutton" data-options="plain: true" onclick="addTab('bing-tab')">Bing</a>
       <a href="#" class="easyui-linkbutton" data-options="plain: true" onclick="addTab('ddg-tab')">Duckduckgo</a>
     </div>
+
     <!--Tab panel-->
     <div id="dt-panel" class="easyui-tabs" style="width:100%; height:100%;"></div>
+
   </div>
 
   <!--Script-->

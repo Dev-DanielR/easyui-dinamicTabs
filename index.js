@@ -2,7 +2,7 @@ const
   path    = require('path'),
   express = require('express'),
   app     = express(),
-  port    = 80
+  port    = 2000
 
 //Session
 const
@@ -34,8 +34,11 @@ app.get(`/`, (req, res) => {
 })
 
 function respondWithDelay(page) {
-  app.get(`/${page}`, async (req, res) => {
-    setTimeout(() => res.render(page), 2000)
+  app.get(`/${page}`, (req, res) => {
+    setTimeout(
+      () => res.render(page, { 'theme': getTheme(req) }),
+      parseInt(Math.random() * 2500) + 500
+    )
   })
 }
 respondWithDelay('google')

@@ -41,7 +41,7 @@ function setUpCombobox() {
     data       : options,
     editable   : false,
     onChange : function(newVal, oldVal) {
-      if (newVal != oldVal) $('link')[0].href = `easyui/themes/${newVal}/easyui.css`;
+      if (newVal != oldVal) $('#theme-form').submit();
     }
   });
 }
@@ -59,28 +59,22 @@ let tabs = {
 function addTab(tabID) {
   let tab = tabs[tabID];
   if ($('#dt-panel').tabs('exists', tab.title)) $('#dt-panel').tabs('select', tab.title);
-  else loadTabContent(tab.url, (content) => {
+  else {
     $('#dt-panel').tabs('add', {
       title    : tab.title,
-      content  : content,
+      content  : `
+        <div id="${tabID}-loader" style="user-select: none; position: absolute; height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">
+          <img src="custom/images/loading.gif" style="width: 50px; height: 50px;">
+        </div>
+        <iframe frameborder="0" id="${tabID}-content" class="easyui-panel" style="height: 98%; width: 100%;"></iframe>`,
       closable : true,
       tools    : [{
         iconCls:'icon-mini-refresh',
-        handler: () => refreshTab(tabID)
+        handler: () => loadTabContent(tabID)
       }],
     });
-  });
-}
-
-function loadTabContent(url, callback) {
-  disableElement('content', 'loading');
-  $.get(url, function(data, status) {
-    switch (status) {
-      case 'success': callback(data); break;
-      default:        callback("Error 404!");
-    }
-    enableElement('content', 'loading');
-  });
+    loadTabContent(tabID);
+  }
 }
 
 function getTabIndex(title) {
@@ -91,16 +85,15 @@ function getTabIndex(title) {
   return index;
 }
 
-function refreshTab(tabID) {
-  const
-    tab    = tabs[tabID],
-    tabRef = $('#dt-panel').tabs('tabs'),
-    index  = getTabIndex(tab.title);
+function loadTabContent(tabID) {
+  const tab = tabs[tabID]
 
-  if (index != -1) loadTabContent(tab.url, (content) => {
-    $('#dt-panel').tabs('update', {
-      tab     : tabRef[index],
-      options : { content: content }
-    });
+  disableElement(`${tabID}-content`, `${tabID}-loader`)
+  $.get(tab.url, function(data, status) {
+    if (status != 'success') data = 'Error 404!';
+    console.log(data)
+    $(`#${tabID}-content`).contents().find('body').html(data)
+    enableElement(`${tabID}-content`, `${tabID}-loader`)
   });
+
 };
