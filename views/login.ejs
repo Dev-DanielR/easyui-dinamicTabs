@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="easyui/themes/<%= theme %>/easyui.css">
+  <link rel="stylesheet" href="easyui/themes/icon.css">
+  <link rel="stylesheet" href="custom/index.css">
+</head>
+<body>
+
+  <div class="easyui-panel" style="padding: 25px; min-width: 300px; max-width: 450px; width: 40%; border-radius: 15px;">
+    <h1>Login</h1>
+    <p>Fill the following data to login to the site: </p>
+  
+    <!--Login Form-->
+    <form id="login-form" method="post">
+      <div style="margin-bottom:20px">
+        <input
+            class="easyui-textbox"
+            name="username"
+            style="width:100%"
+            data-options="label:'Username:', required:'true', iconCls:'icon-man'">
+      </div>
+      <div style="margin-bottom:20px">
+        <input
+            class="easyui-textbox"
+            name="password"
+            style="width:100%"
+            data-options="label:'Password:', required:'true', iconCls:'icon-lock'">
+      </div>
+      <div style="margin-bottom:20px">
+        <input
+            class="easyui-checkbox"
+            type="checkbox"
+            name="rememberMe"> <span>Remember me</span>
+      </div>
+      <div style="text-align: center; padding: 5px 0;">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="sendForm()" style="width:80px">Login</a>
+      </div>
+    </form>
+  </div>
+
+
+  <!--Script-->
+  <script src="easyui/jquery.min.js"></script>
+  <script src="easyui/jquery.easyui.min.js"></script>
+</body>
+</html>
