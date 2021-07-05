@@ -29,10 +29,9 @@ const getTheme = require('./middlewares/theme')
 //Routes
 app.set('view engine', 'ejs')
 
-app.get(`/`, (req, res) => {
-  res.render('index', { 'theme': getTheme(req) })
-})
-
+function respond(page) {
+  app.get(`/${page}`, (req, res) => res.render(page, { 'theme': getTheme(req) }))
+}
 function respondWithDelay(page) {
   app.get(`/${page}`, (req, res) => {
     setTimeout(
@@ -41,13 +40,14 @@ function respondWithDelay(page) {
     )
   })
 }
+
+respond('index')
+respond('login')
+respond('login2')
+respond('login3')
 respondWithDelay('google')
 respondWithDelay('bing')
 respondWithDelay('duckduckgo')
-
-app.get('/login', (req, res) => {
-  res.render('login', { 'theme': getTheme(req) })
-})
 
 //Assets
 app.use('/', express.static(path.join(__dirname, 'public')))

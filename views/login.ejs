@@ -8,10 +8,52 @@
   <link rel="stylesheet" href="easyui/themes/<%= theme %>/easyui.css">
   <link rel="stylesheet" href="easyui/themes/icon.css">
   <link rel="stylesheet" href="custom/index.css">
+  <style>
+    body {
+      margin: 0px;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      background-image: url("custom/images/rustic.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position-x: center;
+      background-position-y: bottom;
+      overflow: hidden;
+    }
+    #tint {
+      height: 100vh;
+      width: 100vw;
+      position: absolute;
+      z-index: -1;
+      filter: opacity(0.2);
+    }
+    #form-container {
+      padding: 25px;
+      width: 40%;
+      max-width: 500px;
+      border-radius: 15px;
+      margin-bottom: 50px;
+    }
+  
+    @media only screen and (max-height: 450px) {
+      body {
+        justify-content: center;
+      }
+      #form-container {
+        margin-bottom: 0px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <div class="easyui-panel" style="padding: 25px; min-width: 300px; max-width: 450px; width: 40%; border-radius: 15px;">
+  <!--Tint-->
+  <span id="tint" class="panel-body"></span>
+  <div id="form-container" class="easyui-panel">
     <h1>Login</h1>
     <p>Fill the following data to login to the site: </p>
   
@@ -22,14 +64,14 @@
             class="easyui-textbox"
             name="username"
             style="width:100%"
-            data-options="label:'Username:', required:'true', iconCls:'icon-man'">
+            data-options="prompt: 'Enter username', required:'true', iconCls:'icon-man'">
       </div>
       <div style="margin-bottom:20px">
         <input
-            class="easyui-textbox"
+            class="easyui-passwordbox"
             name="password"
             style="width:100%"
-            data-options="label:'Password:', required:'true', iconCls:'icon-lock'">
+            data-options="prompt: 'Enter password', required:'true', iconCls:'icon-lock'">
       </div>
       <div style="margin-bottom:20px">
         <input
@@ -41,8 +83,8 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="sendForm()" style="width:80px">Login</a>
       </div>
     </form>
-  </div>
 
+  </div>
 
   <!--Script-->
   <script src="easyui/jquery.min.js"></script>
